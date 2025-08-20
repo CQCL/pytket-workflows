@@ -10,7 +10,7 @@ on:
       publish:
         description: "Whether to push wheels to pypi after building them"
         required: true
-        type: bool
+        type: boolean
     secrets:
       PYPI_API_TOKEN:
         description: "The token used to upload wheels to pypi"
