@@ -48,7 +48,7 @@ jobs:
   publish_to_pypi:
     name: Publish to pypi
     if: ${{ inputs.publish }}
-    needs: ext-checks
+    needs: build-release
     runs-on: "ubuntu-latest"
     steps:
       - name: Download wheel
