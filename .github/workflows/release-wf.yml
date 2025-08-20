@@ -48,7 +48,7 @@ jobs:
   publish_to_pypi:
     name: Publish to pypi
     if: ${{ inputs.publish }}
-    needs: braket-checks
+    needs: ext-checks
     runs-on: "ubuntu-latest"
     steps:
       - name: Download wheel
