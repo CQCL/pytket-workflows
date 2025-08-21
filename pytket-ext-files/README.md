@@ -4,7 +4,7 @@
 [![Stack Exchange](https://img.shields.io/badge/StackExchange-%23ffffff.svg?style=for-the-badge&logo=StackExchange)](https://quantumcomputing.stackexchange.com/tags/pytket)
 
 [Pytket](https://tket.quantinuum.com/api-docs/index.html) is a python module for interfacing
-with CQC tket, a set of quantum programming tools.
+with tket, a quantum computing toolkit and optimising compiler developed by Quantinuum.
 
 `pytket-TODOEXTNAME` is an extension to `pytket` that allows `pytket` circuits to be
 executed on .
@@ -25,7 +25,7 @@ pip install pytket-TODOEXTNAME
 This will install `pytket` if it isn't already installed, and add new classes
 and methods into the `pytket.extensions` namespace.
 
-## Bugs and feature requests
+## Bugs, support and feature requests
 
 Please file bugs and feature requests on the Github
 [issue tracker](https://github.com/CQCL/pytket-TODOEXTNAME/issues).
