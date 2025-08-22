@@ -39,7 +39,7 @@ tracker = "https://github.com/CQCL/pytket-TODOEXTNAME/issues"
 find = {}
 
 [tool.setuptools.dynamic]
-version = {attr = "pytket.extensions.TODOEXTNAME._metadata.__extension_version__"}
+version = {attr = "_metadata.__extension_version__"}
 
 [build-system]
 requires = ["setuptools"]
