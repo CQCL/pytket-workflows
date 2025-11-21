@@ -32,8 +32,7 @@ Please file bugs and feature requests on the Github
 
 ## Development
 
-To install an extension in editable mode, simply change to its subdirectory
-within the `modules` directory, and run:
+To install an extension in editable mode run:
 
 ```shell
 pip install -e .

@@ -1,0 +1,97 @@
+name: Unit tests
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        description: "Operating System to build on"
+        required: true
+        type: string
+      pyver:
+        description: "Python version to build on"
+        required: true
+        type: string
+      PYTKET_REMOTE_IBM_CLOUD_INSTANCE:
+        description: "PYTKET_REMOTE_IBM_CLOUD_INSTANCE"
+        required: false
+        type: string
+      PYTKET_REMOTE_IBM_CLOUD_TOKEN:
+        description: "PYTKET_REMOTE_IBM_CLOUD_TOKEN"
+        required: false
+        type: string
+      PYTKET_REMOTE_QUANTINUUM_USERNAME:
+        description: "PYTKET_REMOTE_QUANTINUUM_USERNAME"
+        required: false
+        type: string
+      PYTKET_REMOTE_QUANTINUUM_PASSWORD:
+        description: "PYTKET_REMOTE_QUANTINUUM_PASSWORD"
+        required: false
+        type: string
+      PYTKET_REMOTE_QUANTINUUM_USERNAME_QA:
+        description: "PYTKET_REMOTE_QUANTINUUM_USERNAME_QA"
+        required: false
+        type: string
+      PYTKET_REMOTE_QUANTINUUM_PASSWORD_QA:
+        description: "PYTKET_REMOTE_QUANTINUUM_PASSWORD_QA"
+        required: false
+        type: string
+      PYTKET_REMOTE_BRAKET_ACCESS_KEY_ID:
+        description: "PYTKET_REMOTE_BRAKET_ACCESS_KEY_ID"
+        required: false
+        type: string
+      PYTKET_REMOTE_BRAKET_ACCESS_KEY_SECRET:
+        description: "PYTKET_REMOTE_BRAKET_ACCESS_KEY_SECRET"
+        required: false
+        type: string
+      PYTKET_REMOTE_BRAKET_REGION:
+        description: "PYTKET_REMOTE_BRAKET_REGION"
+        required: false
+        type: string
+      PYTKET_REMOTE_BRAKET_BUCKET:
+        description: "PYTKET_REMOTE_BRAKET_BUCKET"
+        required: false
+        type: string
+      PYTKET_REMOTE_BRAKET_FOLDER:
+        description: "PYTKET_REMOTE_BRAKET_FOLDER"
+        required: false
+        type: string
+      TODO:
+        description: "TODO"
+        required: false
+        type: string
+
+jobs:
+  unit-tests:
+    name: Unit tests
+    runs-on: ${{ inputs.os }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.4.20"
+          enable-cache: true
+      - name: Install Python ${{ inputs.pyver }}
+        run: uv python install ${{ inputs.pyver }}
+      - name: Setup dependencies
+        run: uv sync --python ${{ inputs.pyver }}
+      - name: Pytest
+        env:
+          PYTKET_RUN_REMOTE_TESTS: 1
+          PYTKET_RUN_REMOTE_TESTS_PROD: 1
+          PYTKET_REMOTE_QUANTINUUM_EMULATORS_ONLY: 1
+          PYTKET_REMOTE_IBM_CLOUD_INSTANCE: ${{ inputs.PYTKET_REMOTE_IBM_CLOUD_INSTANCE }}
+          PYTKET_REMOTE_IBM_CLOUD_TOKEN: ${{ inputs.PYTKET_REMOTE_IBM_CLOUD_TOKEN }}
+          PYTKET_REMOTE_QUANTINUUM_USERNAME: ${{ inputs.PYTKET_REMOTE_QUANTINUUM_USERNAME }}
+          PYTKET_REMOTE_QUANTINUUM_PASSWORD: ${{ inputs.PYTKET_REMOTE_QUANTINUUM_PASSWORD }}
+          PYTKET_REMOTE_QUANTINUUM_USERNAME_QA: ${{ inputs.PYTKET_REMOTE_QUANTINUUM_USERNAME_QA }}
+          PYTKET_REMOTE_QUANTINUUM_PASSWORD_QA: ${{ inputs.PYTKET_REMOTE_QUANTINUUM_PASSWORD_QA }}
+          PYTKET_REMOTE_BRAKET_ACCESS_KEY_ID: ${{ inputs.PYTKET_REMOTE_BRAKET_ACCESS_KEY_ID }}
+          PYTKET_REMOTE_BRAKET_ACCESS_KEY_SECRET: ${{ inputs.PYTKET_REMOTE_BRAKET_ACCESS_KEY_SECRET }}
+          PYTKET_REMOTE_BRAKET_REGION: ${{ inputs.PYTKET_REMOTE_BRAKET_REGION }}
+          PYTKET_REMOTE_BRAKET_BUCKET: ${{ inputs.PYTKET_REMOTE_BRAKET_BUCKET }}
+          PYTKET_REMOTE_BRAKET_FOLDER: ${{ inputs.PYTKET_REMOTE_BRAKET_FOLDER }}
+          TODO: ${{ inputs.TODO }}
+
+        run: uv run pytest
