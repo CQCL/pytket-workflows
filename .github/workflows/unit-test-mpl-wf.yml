@@ -1,0 +1,43 @@
+name: Unit tests
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        description: "Operating System to build on"
+        required: true
+        type: string
+      pyver:
+        description: "Python version to build on"
+        required: true
+        type: string
+    secrets:
+      PYTKET_REMOTE_QUANTINUUM_USERNAME:
+        description: "PYTKET_REMOTE_QUANTINUUM_USERNAME"
+        required: false
+      PYTKET_REMOTE_QUANTINUUM_PASSWORD:
+        description: "PYTKET_REMOTE_QUANTINUUM_PASSWORD"
+        required: false
+
+jobs:
+  unit-tests:
+    name: Unit tests
+    runs-on: ${{ inputs.os }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.4.20"
+          enable-cache: true
+      - name: Install Python ${{ inputs.pyver }}
+        run: uv python install ${{ inputs.pyver }}
+      - name: Setup dependencies
+        run: uv sync --python ${{ inputs.pyver }}
+      - name: Pytest
+        env:
+          PYTKET_RUN_MPL_TESTS: 1
+          PYTKET_REMOTE_QUANTINUUM_USERNAME: ${{ secrets.PYTKET_REMOTE_QUANTINUUM_USERNAME }}
+          PYTKET_REMOTE_QUANTINUUM_PASSWORD: ${{ secrets.PYTKET_REMOTE_QUANTINUUM_PASSWORD }}
+        run: uv run pytest tests/integration/ --mpl
