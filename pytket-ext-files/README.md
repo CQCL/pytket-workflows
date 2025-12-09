@@ -28,7 +28,7 @@ and methods into the `pytket.extensions` namespace.
 ## Bugs, support and feature requests
 
 Please file bugs and feature requests on the Github
-[issue tracker](https://github.com/CQCL/pytket-TODOEXTNAME/issues).
+[issue tracker](https://github.com/Quantinuum/pytket-TODOEXTNAME/issues).
 
 ## Development
 
