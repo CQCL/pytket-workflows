@@ -30,6 +30,10 @@ dependencies = [
     "TODOPYTKETEXT",
 ]
 
+[project.optional-dependencies]
+TODOOPTDEP = ["pytket >= 2.7.0"]
+
+
 [project.urls]
 documentation = "https://tket.quantinuum.com/extensions/pytket-TODOEXTNAME/index.html"
 source = "https://github.com/CQCL/pytket-TODOEXTNAME"
