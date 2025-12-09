@@ -38,6 +38,14 @@ To install an extension in editable mode run:
 pip install -e .
 ```
 
+We have set up the repo to be used with uv. You can use also:
+
+```shell
+uv sync --python 3.12
+```
+
+to install the package. This will automatically pick up all requirements for the tests as well.
+
 ## Contributing
 
 Pull requests are welcome. To make a PR, first fork the repo, make your proposed
@@ -56,10 +64,11 @@ checked on the CI.
 
 On the CI, [mypy](https://mypy.readthedocs.io/en/stable/) is used as a static
 type checker and all submissions must pass its checks. You should therefore run
-`mypy` locally on any changed files before submitting a PR. Because of the way
-extension modules embed themselves into the `pytket` namespace this is a little
-complicated, but it should be sufficient to run the script `./mypy-check`
-(passing as a single argument the root directory of the module to test).
+`mypy` locally on any changed files before submitting a PR. You can run them with:
+
+```shell
+uv run mypy --config-file=mypy.ini --no-incremental --explicit-package-bases pytket tests
+```
 
 #### Linting
 
