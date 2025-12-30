@@ -15,7 +15,7 @@ on:
         description: "Whether to pull docker for pyquil"
         required: false
         type: boolean
-        defalut: false
+        default: false
 
 jobs:
   unit-tests:
