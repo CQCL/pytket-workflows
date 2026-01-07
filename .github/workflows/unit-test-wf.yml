@@ -11,11 +11,6 @@ on:
         description: "Python version to build on"
         required: true
         type: string
-      docker:
-        description: "Whether to pull docker for pyquil"
-        required: false
-        type: boolean
-        default: false
 
 jobs:
   unit-tests:
@@ -29,11 +24,6 @@ jobs:
         with:
           version: "0.4.20"
           enable-cache: true
-      - name: Pull docker images
-        if: ${{ inputs.docker }} && ${{ matrix.os == 'ubuntu-latest' }}
-        run: |
-          docker pull rigetti/quilc
-          docker pull rigetti/qvm
       - name: Install Python ${{ inputs.pyver }}
         run: uv python install ${{ inputs.pyver }}
       - name: Setup dependencies
