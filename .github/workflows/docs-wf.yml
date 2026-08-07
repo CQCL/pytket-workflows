@@ -40,7 +40,7 @@ jobs:
           sphinx-build -b html . build -D html_title=${{ inputs.extname }}
           sphinx-build -b linkcheck . build
           sphinx-build -v -b coverage . build/coverage
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: docs
           path: docs/build/
