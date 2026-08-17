@@ -23,7 +23,7 @@ jobs:
           fetch-depth: "0"
           submodules: recursive
       - name: Set up uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v10
         with:
           version: "0.4.20"
           enable-cache: true
